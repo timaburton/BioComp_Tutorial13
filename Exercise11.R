@@ -1,7 +1,7 @@
 # set carrying capacity at 1 million
 K=1000000
 # set time we will collect data for
-times <- 1:800
+times <- 1:600
 
 # set up the matrix for N that will contain the time and population of non-mutant cells
 N <- matrix(data=NA,nrow=length(times),ncol=2)
@@ -13,9 +13,9 @@ M[1:99,2]=0
 M[100,2]=1 #first mutation at time=100
 M[,1]=times
 
-# loop to generate the model between time 2 and 250
+# loop to generate the model between time 2 and 200
 # r=0.1 because the drug has not been added yet
-for(i in 2:250){
+for(i in 2:200){
  N[i,2]=N[(i-1),2] + (0.1)*N[(i-1),2]*(1-(N[(i-1),2]+M[(i-1),2])/K)
   if(i>100){
     M[i,2]=M[(i-1),2] + (0.1)*M[(i-1),2]*(1-(N[(i-1),2]+M[(i-1),2])/K)
@@ -23,7 +23,7 @@ for(i in 2:250){
 }
 
 # new loop to simulate addition of the drug
-for(i in 251:800){
+for(i in 201:600){
   N[i,2]=N[(i-1),2] + (-0.1)*N[(i-1),2]*(1-(N[(i-1),2]+M[(i-1),2])/K)
   M[i,2]=M[(i-1),2] + (0.05)*M[(i-1),2]*(1-(N[(i-1),2]+M[(i-1),2])/K)
 }
@@ -43,4 +43,5 @@ ggplot(CellPopulations)+
   geom_line(aes(x=time, y=populationN), color="blue")+
   geom_line(aes(x=time, y=populationM), color="red")+
   xlab("Time")+
-  ylab("Population")
+  ylab("Population")+
+  theme_classic()
