@@ -28,6 +28,8 @@ for (i in 2:length(time)){
   }
 }
   
-
+numbers <- data.frame(Generation=pop[,1],NumberNot=pop[,2],NumberAre=pop[,3])
+numbers$POP <- NA
 
 rm(pop)
+rm(numbers)
